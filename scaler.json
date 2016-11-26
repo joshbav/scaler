@@ -1,0 +1,39 @@
+{
+  "id": "/scaler",
+  "cmd": "sleep 10000",
+  "cpus": 0.2,
+  "mem": 128,
+  "disk": 0,
+  "instances": 0,
+  "executor": null,
+  "fetch": null,
+  "constraints": null,
+  "acceptedResourceRoles": null,
+  "user": null,
+  "container": {
+    "docker": {
+      "image": "joshbav/scaler",
+      "forcePullImage": true,
+      "privileged": false,
+      "network": "HOST"
+    }
+  },
+  "labels": null,
+  "healthChecks": null,
+  "env": {
+    "DCOS_SERVICE_ACCOUNT_CREDENTIAL": {
+      "secret": "secret0"
+    }
+  },
+  "secrets": {
+    "secret0": {
+      "source": "marathon-lb"
+    }
+  },
+  "portDefinitions": [
+    {
+      "protocol": "tcp",
+      "port": 0
+    }
+  ]
+}
