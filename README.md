@@ -32,11 +32,14 @@ The DC/OS Enterprise Edition CLI is used by this script,  the user must be logge
 
 This is a version 0.1 product.  
 
+# TRY IT
+
 To try it, clone this repo, login to your cluster, and ensure you don't have an app already named testapp.
 
 Modify the testapp.template.json and change the HAPROXY_0_VHOST label to match your DNS. This lablel us used by marathon-lb to automatically configure itself and make the app available via load balancing. Also modify that same label in the testapp-nginx.json file, and optionally in the testapp-apache.json file. 
 
 Then add the nginx test app with: dcos marathon app add testapp-nginx.json
+
 Verify you can reach the app via curl or a browser.
 
 Then generate the deployment jobs with a canary that uses the apache container:  ./deploy-canary httpd testapp
