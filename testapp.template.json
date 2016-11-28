@@ -56,7 +56,7 @@
     "HAPROXY_DEPLOYMENT_NEW_INSTANCES": "1",
     "HAPROXY_DEPLOYMENT_TARGET_INSTANCES": "4",    
     "HAPROXY_0_GROUP": "external",
-    "HAPROXY_0_VHOST": "joshb-qeg-elasticl-1x7blhfr4z7ug-1394275033.us-west-2.elb.amazonaws.com"
+    "HAPROXY_0_VHOST": "joshb-u9l-publicsl-1jzzzsvsz4tmf-2085994907.us-west-2.elb.amazonaws.com"
   },
   "acceptedResourceRoles": [
     "*"

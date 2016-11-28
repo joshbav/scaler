@@ -6,6 +6,12 @@ A utility for DC/OS'S marathon-lb north/south load balancer (mesosphere/marathon
 This is bash script (deploy-canary.sh) which takes two arguments; a container name (repo/name:label) and an app name (testapp). 
 ex: ./deploy-canary.sh nginx testapp
 
+The DC/OS enterprise cluster must have an account named bootstrapuser with a password of deleteme
+Marathon-lb must already be installed, and modified to use the :latest container. 
+The service account named dcos_marathon_lb must have a permission added of dcos:superuser=full
+
+What it does:
+
 A new app definition .json file is created (/tmp/new-app-definition.json) from a template file that is specific to the app (testapp.template.json) and the container name.
 Three new DC/OS Job definitions will be created from the new app definiton, using a job template (deploy-canary-job.template.json):
 
