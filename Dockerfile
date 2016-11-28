@@ -20,18 +20,16 @@ atop \
 p7zip \
 txt2regex \
 default-jre \ 
+git \
 expect
 
 # need to not use marathon-lb's entrypoint, not sure if it gets inherited or not, setting it just in case
 ENTRYPOINT bash 
 
 CMD pip3 install virtualenv
-
-
-ADD setup-dcos-cli.sh /
-CMD chmod u+x /setup-dcos-cli.sh
-ADD dcos-cli-login-via-expect.sh /
-CMD chmod u+x /dcos-cli-login-via-expect.sh
+CMD export LC_ALL=C.UTF-8
+CMD export LANG=C.UTF-8
+RUN chmod u+x *.sh
 
 # add the dcos CLI files
 ADD https://downloads.dcos.io/binaries/cli/linux/x86-64/0.4.14/dcos /usr/local/sbin/dcos
@@ -42,10 +40,12 @@ RUN chmod u+x /usr/local/sbin/dcos
 #CMD pip3 install --upgrade pip
 #CMD pip3 install -r requirements.txt
 
-# add our sample app definitions
-ADD testapp-v1-nginx.json / 
-ADD testapp-v2-apache.json / 
+# add utility scripts, such as for logging into DC/OS via the API
+ADD https://raw.githubusercontent.com/mesosphere/dcos-commons/master/tools/dcos_login.py
 
+# add our sample app definitions
+ADD *.json / 
+ADD *.sh /
 # add scripts, hence the name of this container even if it's used for ZDD or other uses than auto scale
 # Documentation https://docs.mesosphere.com/1.8/usage/tutorials/autoscaling/
 ADD https://github.com/mesosphere/marathon-autoscale/blob/master/marathon-autoscale.py /

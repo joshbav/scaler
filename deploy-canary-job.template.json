@@ -1,0 +1,14 @@
+{
+  "id": "deploy-testapp-canary",
+  "description": "1 of 3 jobs used to managed the deployment of testapp's canary",
+  "run": {
+    "cmd": "export NEW_APP_DEFINITION_AS_BASE64_JSON='ThisIsAUniqueKey' \\\n&& curl https://raw.githubusercontent.com/mesosphere/dcos-commons/master/tools/dcos_login.py -o /dcos_login.py \\\n&& export DCOS_TOKEN=http://master.mesos \\\n&& unbuffer chmod u+x /usr/local/sbin/dcos \\\n&& unbuffer dcos config set core.dcos_url http://master.mesos \\\n&& export LANG=\"C.UTF-8\" \\\n&& export LC_ALL=\"C.UTF-8\" \\\n&& printf \"\\nBEGIN COMMAND 1\\n\"  \\\n&& sleep 1 \\\n&& echo $NEW_APP_DEFINITION_AS_BASE64_JSON | base64 --decode > /tmp/new-app-for-zdd.json \\\n&& sleep 2 \\\n&& printf \"\\nBEGIN COMMAND 2\\n\" \\\n&& unbuffer curl -k -v https://master.mesos/ca/dcos-ca.crt -o /tmp/dcos-ca.crt \\\n&& printf \"\\nBEGIN COMMAND 3\\n\" \\\n&& sleep 1 \\\n&& python /dcos_login.py master.mesos \\\n&& printf \"\\nBEGIN COMMAND 4\\n\" \\\n&& sleep 1 \\\n&& dcos package install --yes --cli dcos-enterprise-cli \\\n&& printf \"\\nBEGIN COMMAND 5\\n\" \\\n&& export DCOS_SERVICE_ACCOUNT_CREDENTIAL=\"$(dcos security secrets get /marathon-lb --json | jq -r .value | jq -c .)\" \\\n&& printf \"\\nBEGIN ZERO DOWNTIME DEPLOYMENT SCRIPT\\n\" \\\n&& /marathon-lb/zdd.py --json /tmp/new-app-for-zdd.json \\\n--marathon-ca-cert /tmp/dcos-ca.crt \\\n--marathon http://master.mesos:8080 \\\n--marathon-lb http://marathon-lb.marathon.mesos:9090 \\\n--syslog-socket /dev/null \\\n--max-wait 1 \\\n--force \\\n--new-instances 1 \\\n&& sleep 10\n",
+    "cpus": 0.1,
+    "mem": 512,
+    "disk": 0,
+    "docker": {
+      "image": "joshbav/scaler:latest"
+    }
+  },
+  "schedules": []
+}

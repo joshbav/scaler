@@ -1,0 +1,25 @@
+#!/bin/bash
+# This script is ran from inside the joshbav/scaler container when the container is used for a DC/OS job.
+# The marathon-lb zero downtime deployment (ZDD) script is called, but first the enviornment for it is setup.
+#
+# The new app definition json file must be created from the base64 environment variable the job provided to this script
+# The cluster's CA cert must be obtained
+# The service account secret must be obtained, and given to the ZDD script. This is done by a scripted login of the DCOS CLI,
+# and the CLI gets the secret and saves it as a file. 
+# Finally the ZDD script is ran
+# as cleanup a sleep timer is started, because currently DC/OS doesn't mantain jobs logs in the GUI after it finishes
+
+ECHO the base64 of the new app json is passed to this script by the DC/OS job, as the script's first parameter
+echo $1 | base64 --decode > /tmp/new-app-for-zdd.json 
+
+ECHO curl the cluster's CA cert, since the ZDD script will use it
+curl -k -v https://master.mesos/ca/dcos-ca.crt -o /tmp/dcos-ca.crt 
+
+ECHO Setup the DC/OS CLI package and do a scripted login, this output is blackhole'd
+bash /setup-dcos-cli.sh > /dev/null 2>&1 
+
+# leave this job running for 12 hours even though it's done, because dcos 1.8.7 doesn't retain logs in the gui for finished jobs at the moment, so we'll leave it unfinished until long after it's needed
+sleep 42000
+
+
+

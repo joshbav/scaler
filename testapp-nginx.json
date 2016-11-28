@@ -1,0 +1,84 @@
+{
+  "id": "/testapp",
+  "cmd": null,
+  "args": null,
+  "user": null,
+  "env": null,
+  "instances": 4,
+  "cpus": 0.5,
+  "mem": 1024,
+  "disk": 0,
+  "gpus": 0,
+  "executor": null,
+  "constraints": null,
+  "fetch": null,
+  "storeUrls": null,
+  "backoffSeconds": 1,
+  "backoffFactor": 1.15,
+  "maxLaunchDelaySeconds": 3600,
+  "container": {
+    "docker": {
+      "image": "bitnami/nginx:1.10.2-r0",
+      "forcePullImage": false,
+      "privileged": false,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp",
+          "servicePort": 10101
+        }
+      ],
+      "network": "BRIDGE"
+    }
+  },
+  "healthChecks": [
+    {
+      "protocol": "HTTP",
+      "path": "/",
+      "gracePeriodSeconds": 3,
+      "intervalSeconds": 3,
+      "timeoutSeconds": 3,
+      "maxConsecutiveFailures": 2,
+      "ignoreHttp1xx": false
+    }
+  ],
+  "readinessChecks": null,
+  "dependencies": null,
+  "upgradeStrategy": {
+    "minimumHealthCapacity": 1,
+    "maximumOverCapacity": 1
+  },
+  "labels": {
+    "DCOS_PACKAGE_RELEASE": "5",
+    "DCOS_SERVICE_SCHEME": "http",
+    "DCOS_PACKAGE_SOURCE": "https://universe.mesosphere.com/repo",
+    "DCOS_PACKAGE_METADATA": "eyJwYWNrYWdpbmdWZXJzaW9uIjoiMi4wIiwibmFtZSI6Im5naW54IiwidmVyc2lvbiI6IjEuMTAuMiIsIm1haW50YWluZXIiOiJjb250YWluZXJzQGJpdG5hbWkuY29tIiwiZGVzY3JpcHRpb24iOiJuZ2lueCBpcyBhIGhpZ2ggcGVyZm9ybWFuY2UgSFRUUCBhbmQgcmV2ZXJzZSBwcm94eSBzZXJ2ZXIuIiwidGFncyI6WyJwcm94eSIsIndlYi1zZXJ2ZXIiLCJjYWNoZSIsInJldmVyc2UtcHJveHkiXSwic2VsZWN0ZWQiOmZhbHNlLCJzY20iOiJodHRwOi8vaGcubmdpbngub3JnL25naW54LyIsImZyYW1ld29yayI6ZmFsc2UsInByZUluc3RhbGxOb3RlcyI6IlByZXBhcmluZyB0byBpbnN0YWxsIG5naW54LiIsInBvc3RJbnN0YWxsTm90ZXMiOiJOZ2lueCBoYXMgYmVlbiBpbnN0YWxsZWQuIiwicG9zdFVuaW5zdGFsbE5vdGVzIjoiTmdpbnggd2FzIHVuaW5zdGFsbGVkIHN1Y2Nlc3NmdWxseS4iLCJsaWNlbnNlcyI6W3sibmFtZSI6IkJTRCBsaWtlIiwidXJsIjoiaHR0cDovL25naW54Lm9yZy9MSUNFTlNFIn1dLCJpbWFnZXMiOnsiaWNvbi1zbWFsbCI6Imh0dHBzOi8vcGJzLnR3aW1nLmNvbS9wcm9maWxlX2ltYWdlcy81Njc3NzQ4NDQzMjI3MTM2MDAvdFlvVmp1MzEucG5nIiwiaWNvbi1tZWRpdW0iOiJodHRwczovL3Bicy50d2ltZy5jb20vcHJvZmlsZV9pbWFnZXMvNTY3Nzc0ODQ0MzIyNzEzNjAwL3RZb1ZqdTMxLnBuZyIsImljb24tbGFyZ2UiOiJodHRwczovL3Bicy50d2ltZy5jb20vcHJvZmlsZV9pbWFnZXMvNTY3Nzc0ODQ0MzIyNzEzNjAwL3RZb1ZqdTMxLnBuZyJ9fQ==",
+    "DCOS_PACKAGE_REGISTRY_VERSION": "2.0",
+    "DCOS_SERVICE_NAME": "nginx",
+    "DCOS_SERVICE_PORT_INDEX": "0",
+    "DCOS_PACKAGE_VERSION": "1.10.2",
+    "DCOS_PACKAGE_NAME": "nginx",
+    "DCOS_PACKAGE_IS_FRAMEWORK": "false",
+    "HAPROXY_0_VHOST": "joshb-re0-publicsl-l7t7tlug52o4-760437036.us-west-2.elb.amazonaws.com",
+    "HAPROXY_0_GROUP": "external",
+    "HAPROXY_DEPLOYMENT_COLOUR": "blue",    
+    "HAPROXY_DEPLOYMENT_GROUP": "testapp",
+    "HAPROXY_DEPLOYMENT_NEW_INSTANCES": "1",
+    "HAPROXY_DEPLOYMENT_TARGET_INSTANCES": "4",
+    "HAPROXY_DEPLOYMENT_ALT_PORT": "10126"
+    },
+"acceptedResourceRoles": [
+    "*"
+  ],
+  "residency": null,
+  "secrets": null,
+  "taskKillGracePeriodSeconds": null,
+  "portDefinitions": [
+    {
+      "port": 10101,
+      "protocol": "tcp",
+      "labels": {}
+    }
+  ],
+  "requirePorts": false
+}

@@ -9,7 +9,7 @@ bash ~/mlb-setup.sh
 dcos marathon app add scaler.json
 
 #load up the blue test app
-dcos marathon app add testapp-v2-apache.json
+dcos marathon app add testapp-v1-nginx.json
 
 #install jenkins with /var/jenkins as only config change
 dcos marathon app add jenkins.json

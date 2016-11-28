@@ -1,0 +1,75 @@
+{
+  "volumes": null,
+  "id": "/testapp",
+  "cmd": null,
+  "args": null,
+  "user": null,
+  "env": null,
+  "instances": 1,
+  "cpus": 0.5,
+  "mem": 1024,
+  "disk": 0,
+  "gpus": 0,
+  "executor": null,
+  "constraints": null,
+  "fetch": null,
+  "storeUrls": null,
+  "backoffSeconds": 1,
+  "backoffFactor": 1.15,
+  "maxLaunchDelaySeconds": 3600,
+  "container": {
+    "docker": {
+      "image": "ThisIsAUniqueKey",
+      "forcePullImage": false,
+      "privileged": false,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp",
+          "servicePort": 10102
+        }
+      ],
+      "network": "BRIDGE"
+    }
+  },
+  "healthChecks": [
+    {
+      "protocol": "HTTP",
+      "path": "/",
+      "gracePeriodSeconds": 3,
+      "intervalSeconds": 3,
+      "timeoutSeconds": 3,
+      "maxConsecutiveFailures": 2,
+      "ignoreHttp1xx": false
+    }
+  ],
+  "readinessChecks": null,
+  "dependencies": null,
+  "upgradeStrategy": {
+    "minimumHealthCapacity": 1,
+    "maximumOverCapacity": 1
+  },
+  "labels": {
+    "HAPROXY_DEPLOYMENT_COLOUR": "blue",
+    "HAPROXY_DEPLOYMENT_GROUP": "testapp",
+    "HAPROXY_DEPLOYMENT_ALT_PORT": "10129",
+    "HAPROXY_DEPLOYMENT_NEW_INSTANCES": "1",
+    "HAPROXY_DEPLOYMENT_TARGET_INSTANCES": "4",    
+    "HAPROXY_0_GROUP": "external",
+    "HAPROXY_0_VHOST": "joshb-qeg-elasticl-1x7blhfr4z7ug-1394275033.us-west-2.elb.amazonaws.com"
+  },
+  "acceptedResourceRoles": [
+    "*"
+  ],
+  "residency": null,
+  "secrets": null,
+  "taskKillGracePeriodSeconds": null,
+  "portDefinitions": [
+    {
+      "port": 10102,
+      "protocol": "tcp",
+      "labels": {}
+    }
+  ],
+  "requirePorts": false
+}
