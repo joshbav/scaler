@@ -28,9 +28,9 @@ The deploy-app-template job is ready to be ran. It will create just one instance
 
 The canary instance is then tested.
 
-If successful, the rollout-app-canary job would be ran. It will scale down the existing matching app one instance at a time, while the new canary version is scaled up one instance at a time.
+If successful, the rollout-testapp-canary job would be ran. It will scale down the existing matching app one instance at a time, while the new canary version is scaled up one instance at a time.
 
-However if the new canary instance was not successful, the rollback-app-canary job is utilized, which terminates the canary instance, removes the app definition from Services/Marathon, and scales up the existing app by one instance, returing it to its original instance count.
+However if the new canary instance was not successful, the rollback-testapp-canary job is utilized, which terminates the canary instance, removes the app definition from Services/Marathon, and scales up the existing app by one instance, returing it to its original instance count.
 
 During each of the above scaling events, marathon-lb's zero downtime script (zdd.py) is utilized to achieve connection draining. It is documented at: https://github.com/mesosphere/marathon-lb#zero-downtime-deployments
 
@@ -42,7 +42,7 @@ This is a version 0.1 product.
 
 To try it, clone this repo, login to your cluster, and ensure you don't have an app already named testapp.
 
-Modify the testapp.template.json and change the HAPROXY_0_VHOST label to match your DNS. This lablel us used by marathon-lb to automatically configure itself and make the app available via load balancing. Also modify that same label in the testapp-nginx.json file, and optionally in the testapp-apache.json file. 
+Modify the testapp.template.json and change the HAPROXY_0_VHOST label to match your DNS. This lablel is used by marathon-lb to automatically configure itself and make the app available via load balancing. Also modify that same label in the testapp-nginx.json file, and optionally in the testapp-apache.json file. 
 
 Then add the nginx test app with: dcos marathon app add testapp-nginx.json
 
