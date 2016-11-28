@@ -25,11 +25,11 @@ expect
 
 # need to not use marathon-lb's entrypoint, not sure if it gets inherited or not, setting it just in case
 ENTRYPOINT bash 
+WORKDIR /
 
 CMD pip3 install virtualenv
 CMD export LC_ALL=C.UTF-8
 CMD export LANG=C.UTF-8
-RUN chmod u+x *.sh
 
 # add the dcos CLI files
 ADD https://downloads.dcos.io/binaries/cli/linux/x86-64/0.4.14/dcos /usr/local/sbin/dcos
@@ -43,9 +43,14 @@ RUN chmod u+x /usr/local/sbin/dcos
 # add utility scripts, such as for logging into DC/OS via the API
 ADD https://raw.githubusercontent.com/mesosphere/dcos-commons/master/tools/dcos_login.py
 
-# add our sample app definitions
+add README.md /
+
+# add project files
+RUN chmod u+x /*.sh
 ADD *.json / 
 ADD *.sh /
+RUN chmod u+x /*.sh
+
 # add scripts, hence the name of this container even if it's used for ZDD or other uses than auto scale
 # Documentation https://docs.mesosphere.com/1.8/usage/tutorials/autoscaling/
 ADD https://github.com/mesosphere/marathon-autoscale/blob/master/marathon-autoscale.py /
