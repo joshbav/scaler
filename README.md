@@ -1,7 +1,7 @@
 # AUTOMATING ZERO DOWNTIME DEPLOYMENTS WITH MARATHON-LB
 Revision 11-27-16
 
-A utility for mesosphere/marathon-lb  github.com/mesosphere/marathon-lb/
+A utility for DC/OS'S marathon-lb north/south load balancer (mesosphere/marathon-lb & github.com/mesosphere/marathon-lb).
 
 This is bash script (deploy-canary.sh) which takes two arguments; a container name (repo/name:label) and an app name (testapp). 
 ex: ./deploy-canary.sh nginx testapp
@@ -26,7 +26,7 @@ If successful, the rollout-app-canary job would be ran. It will scale down the e
 
 However if the new canary instance was not successful, the rollback-app-canary job is utilized, which terminates the canary instance, removes the app definition from Services/Marathon, and scales up the existing app by one instance, returing it to its original instance count.
 
-During each of the above scaling events, marathon-lb's (github: mesosphere/marathon-lb) zero downtime script (zdd.py) is utilized to achieve connection draining.
+During each of the above scaling events, marathon-lb's zero downtime script (zdd.py) is utilized to achieve connection draining. It is documented at: https://github.com/mesosphere/marathon-lb#zero-downtime-deployments
 
 The DC/OS Enterprise Edition CLI is used by this script,  the user must be logged in already when running deploy-canary.sh
 
@@ -48,6 +48,4 @@ If you cycle thru the browser or curl, or generate a load test, you should see 1
 Let us assume the test canary was successful. You would now run the rollout-testapp-canary job. 
 
 However if the test canary instance was not successful, you would remove it by running the rollback-testapp-canary job.
-
-All the while as scaling of instances have ocurred with all three jobs, connection draining is utilized, via marathon-lb's zero downtime deployment script (zdd.py). 
 
