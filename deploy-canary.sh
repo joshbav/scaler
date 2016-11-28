@@ -31,7 +31,7 @@ echo DC/OS job template file to be used: $JOB_TEMPLATE_FILE
 echo "From this a new DC/OS job definition will be created at /tmp/deploy-$APP_NAME-canary.json"
 echo
 
-# STEP 1 ##### Put the container in the app skeleton
+# STEP 1 ##### Put the container in the app template
 # stream the app skeleton file thru sed, which will swap out a unique key with the container
 # save it as /tmp/new-app-definition.json
 
@@ -41,7 +41,7 @@ cat $APP_TEMPLATE_FILE | sed 's|ThisIsAUniqueKey|'$CONTAINER'|g' | jq -c . > /tm
 # now read it in as an variable in base64 format (to avoid escaping problems), since that's easy for me to use with sed
 NEW_APP_DEFINITION_AS_BASE64_JSON=$(cat /tmp/new-app-definition.json | jq -c -r @base64)
 
-# STEP 2 ##### Put the app template into the job skeleton
+# STEP 2 ##### Put the app template into the job template
 # stream the job template file thru sed, which will swap out a unique key with 
 # the app template file, save it as /tmp/deploy-<app name>-canary.json 
 # It will also create the rollout and rollback jobs from it, by modifying the deploy job that was created
@@ -50,12 +50,12 @@ echo "Creating /tmp/deploy-$APP_NAME-canary.json"
 cat $JOB_TEMPLATE_FILE | sed 's|ThisIsAUniqueKey|'$NEW_APP_DEFINITION_AS_BASE64_JSON'|g' > /tmp/deploy-"$APP_NAME"-canary.json 
 
 echo "Creating /tmp/rollout-$APP_NAME-canary.json"
-cat /tmp/deploy-"$APP_NAME"-canary.json | sed 's|--instances 1|'--complete-cur'|g; s|deploy-|'rollout-'|g' > /tmp/rollout-$APP_NAME-canary.json
+cat /tmp/deploy-"$APP_NAME"-canary.json | sed 's|--new-instances 1|--complete-cur|g; s|deploy-|rollout-|g' > /tmp/rollout-$APP_NAME-canary.json
 
 echo "Creating /tmp/rollback-$APP_NAME-canary.json"
-cat /tmp/deploy-"$APP_NAME"-canary.json | sed 's|--instances 1|'--rollback-cur'|g; s|deploy-|'rollback-'|g' > /tmp/rollback-$APP_NAME-canary.json
+cat /tmp/deploy-"$APP_NAME"-canary.json | sed 's|--new-instances 1|--rollback-cur|g; s|deploy-|rollback-|g' > /tmp/rollback-$APP_NAME-canary.json
 
-echo "Removing any existing DC/OS jobs for app $APP_NAME."
+echo "Using the DC/OS CLI, removing any existing DC/OS jobs for app $APP_NAME."
 echo
 dcos job kill deploy-$APP_NAME-canary
 dcos job remove deploy-$APP_NAME-canary 
@@ -82,11 +82,13 @@ echo
 dcos job add /tmp/rollback-$APP_NAME-canary.json
 echo "DC/OS job deploy-$APP_NAME-canary added, it has not been started. If the canary instance failed testing, use this job to rollback and remove the canary."
 echo
-echo "To see dcos jobs, use: dcos job list"
+echo "To see dcos jobs via the CLI, use: dcos job list"
 echo
-echo "To run the job, use: dcos job run deploy-$APP_NAME-canary"
+echo "To run one of the jobs from the CLI, such as  deploy-$APP_NAME-canary   use: dcos job run deploy-$APP_NAME-canary"
+echo "Or just use the GUI, and go the Jobs screen. 
+echo "Or use the API (https://dcos.github.io/metronome/docs/generated/api.html)"
 echo
-
+echo
 
 
 

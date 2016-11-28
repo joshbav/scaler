@@ -5,7 +5,7 @@
   "args": null,
   "user": null,
   "env": null,
-  "instances": 1,
+  "instances": 4,
   "cpus": 0.5,
   "mem": 1024,
   "disk": 0,
@@ -50,13 +50,10 @@
     "maximumOverCapacity": 1
   },
   "labels": {
-    "HAPROXY_DEPLOYMENT_COLOUR": "blue",
     "HAPROXY_DEPLOYMENT_GROUP": "testapp",
     "HAPROXY_DEPLOYMENT_ALT_PORT": "10129",
-    "HAPROXY_DEPLOYMENT_NEW_INSTANCES": "1",
-    "HAPROXY_DEPLOYMENT_TARGET_INSTANCES": "4",    
     "HAPROXY_0_GROUP": "external",
-    "HAPROXY_0_VHOST": "joshb-u9l-publicsl-1jzzzsvsz4tmf-2085994907.us-west-2.elb.amazonaws.com"
+    "HAPROXY_0_VHOST": "joshb-n4q-publicsl-5xcecj7ign4e-1448437195.us-west-2.elb.amazonaws.com"
   },
   "acceptedResourceRoles": [
     "*"

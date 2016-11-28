@@ -50,7 +50,9 @@ Verify you can reach the app via curl or a browser.
 
 Then generate the deployment jobs with a canary that uses the apache container:  ./deploy-canary httpd testapp
 
-In the DC/OS GUI go to the Jobs screen and begin the job deploy-testapp-canary. The job is a large container, the initial download will take time. Alternatively, you can use the DC/OS cli to run the job via:  dcos job run deploy-testapp-canary 
+In the DC/OS GUI go to the Jobs screen and begin the job deploy-testapp-canary. 
+
+Alternatively, you can use the DC/OS cli to run the job via:  dcos job run deploy-testapp-canary 
 
 If you cycle thru the browser or curl, or generate a load test, you should see 1 of 4 responses with the "It Works!" default page of apache. At this point you are in hybrid mode; both the old and new versions are running and traffic is split. 
 
