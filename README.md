@@ -6,9 +6,9 @@ A utility for DC/OS'S marathon-lb north/south load balancer (mesosphere/marathon
 This is bash script (deploy-canary.sh) which takes two arguments; a container name (repo/name:label) and an app name (testapp). 
 ex: ./deploy-canary.sh nginx testapp
 
-The DC/OS enterprise cluster must have an account named bootstrapuser with a password of deleteme
-Marathon-lb must already be installed, and modified to use the :latest container. 
-The service account named dcos_marathon_lb must have a permission added of dcos:superuser=full
+The DC/OS enterprise cluster must have an account named bootstrapuser with a password of deleteme (requirement 1).
+Marathon-lb must already be installed, and modified to use the :latest container (requirement 2).
+The service account named dcos_marathon_lb must have a permission added of dcos:superuser=full (requirement 3, is temporary).
 
 What it does:
 
@@ -40,9 +40,9 @@ This is a version 0.1 product.
 
 # TRY IT
 
-To try it, clone this repo, login to your cluster, and ensure you don't have an app already named testapp.
+To try it, clone this repo, login to your cluster, and ensure you don't have an app already named testapp. Ensure the requirements above are met.
 
-Modify the testapp.template.json and change the HAPROXY_0_VHOST label to match your DNS. This lablel is used by marathon-lb to automatically configure itself and make the app available via load balancing. Also modify that same label in the testapp-nginx.json file, and optionally in the testapp-apache.json file. 
+Modify the testapp.template.json and change the HAPROXY_0_VHOST label to match the DNS entry for this app, this label is how marathon-lb knows what app is associated to what DNS FQDN, from this marathon-lb automatically configures itself to make the app available via load balancing. Also modify that same label in the testapp-nginx.json file. 
 
 Then add the nginx test app with: dcos marathon app add testapp-nginx.json
 
