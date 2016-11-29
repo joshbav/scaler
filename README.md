@@ -6,6 +6,8 @@ A utility for DC/OS'S marathon-lb north/south load balancer (mesosphere/marathon
 This is bash script (deploy-canary.sh) which takes two arguments; a container name (repo/name:label) and an app name (testapp). 
 ex: ./deploy-canary.sh nginx testapp
 
+[Here is a video of its use](https://mesosphere-mc.webex.com/mesosphere-mc/ldr.php?RCID=a8bbc9120c09544543719d2416c28a2c) following the directions below.
+
 REQUIREMENTS 
 
 These requirements are temporary and will change.
