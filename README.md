@@ -20,31 +20,31 @@ These requirements are temporary and will change.
 
 WHAT IT DOES
 
-A new app definition .json file is created (/tmp/new-app-definition.json) from a template file that is specific to the app (testapp.template.json) and the container name.
-Three new DC/OS Job definitions will be created from the new app definiton, using a job template (deploy-canary-job.template.json):
+A new app definition file is created (/tmp/new-app-definition.json) from a template file that is specific to the app (testapp.template.json) and the provided container name.
+Three new DC/OS Job definitions will be created from the new app definition, using a job template (deploy-canary-job.template.json):
 
-/tmp/deploy-$APP_NAME-canary.json
+/tmp/deploy-appname-canary.json
 
-/tmp/rollout-$APP_NAME-canary.json
+/tmp/rollout-appname-canary.json
 
-/tmp/rollback-$APP_NAME-canary.json
+/tmp/rollback-appname-canary.json
 
-Any jobs with these names that alredy exist are stopped and removed. 
+Any jobs with these names that already exist are stopped and removed. 
 Then the three jobs are added.
 
-The deploy-app-template job is ready to be ran. It will create just one instance of the new container, and scale down by 1 the existing matching app of the blue green pair (per HAPROXY labels in the app definitions).
+The deploy-appname-template job is ready to be ran. It will create just one instance of the new container, and scale down by 1 the existing matching app of the blue green pair.
 
 The canary instance is then tested.
 
-If successful, the rollout-testapp-canary job would be ran. It will scale down the existing matching app one instance at a time, while the new canary version is scaled up one instance at a time.
+If successful, the rollout-appname-canary job would be ran. It will scale down the existing matching app one instance at a time, while the new canary version is scaled up one instance at a time.
 
-However if the new canary instance was not successful, the rollback-testapp-canary job is utilized, which terminates the canary instance, removes the app definition from Services/Marathon, and scales up the existing app by one instance, returing it to its original instance count.
+However, if the new canary instance was not successful, the rollback-appname-canary job is utilized, which terminates the canary instance, removes the app definition from DC/OS Services (aka Marathon), and scales up the existing app by one instance, returning it to its original instance count.
 
 During each of the above scaling events, marathon-lb's zero downtime script (zdd.py) is utilized to achieve connection draining. It is documented at: https://github.com/mesosphere/marathon-lb#zero-downtime-deployments
 
-The DC/OS Enterprise Edition CLI is used by this script,  the user must be logged in already when running deploy-canary.sh
+The DC/OS Enterprise Edition CLI is used by this script, you must be logged in already when running deploy-canary.sh
 
-This is a version 0.1 product.  
+This is the first version of this script.  
 
 # TRY IT OUT
 
@@ -68,5 +68,5 @@ This is a version 0.1 product.
 
 10a. Let us assume the test canary was successful. You would now run the rollout-testapp-canary job. 
 
-10b. However if the test canary instance was not successful, you would remove it by running the rollback-testapp-canary job.
+10b. However, if the test canary instance was not successful, you would remove it by running the rollback-testapp-canary job.
 
