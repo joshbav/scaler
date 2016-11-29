@@ -18,8 +18,7 @@ python3 \
 python3-pip \
 atop \
 p7zip \
-txt2regex \
-default-jre \ 
+txt2regex \ 
 git \
 expect
 

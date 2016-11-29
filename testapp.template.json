@@ -53,7 +53,7 @@
     "HAPROXY_DEPLOYMENT_GROUP": "testapp",
     "HAPROXY_DEPLOYMENT_ALT_PORT": "10129",
     "HAPROXY_0_GROUP": "external",
-    "HAPROXY_0_VHOST": "joshb-n4q-publicsl-5xcecj7ign4e-1448437195.us-west-2.elb.amazonaws.com"
+    "HAPROXY_0_VHOST": "joshb-izg-publicsl-1c9g9cqall2pp-833455691.eu-west-1.elb.amazonaws.com"
   },
   "acceptedResourceRoles": [
     "*"

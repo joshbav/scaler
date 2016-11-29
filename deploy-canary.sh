@@ -36,6 +36,7 @@ echo
 # save it as /tmp/new-app-definition.json
 
 echo Creating /tmp/new-app-definition.json
+echo 
 cat $APP_TEMPLATE_FILE | sed 's|ThisIsAUniqueKey|'$CONTAINER'|g' | jq -c . > /tmp/new-app-definition.json
 
 # now read it in as an variable in base64 format (to avoid escaping problems), since that's easy for me to use with sed
@@ -86,7 +87,7 @@ echo "To see dcos jobs via the CLI, use: dcos job list"
 echo
 echo "To run one of the jobs from the CLI, such as  deploy-$APP_NAME-canary   use: dcos job run deploy-$APP_NAME-canary"
 echo "Or just use the GUI, and go the Jobs screen. 
-echo "Or use the API (https://dcos.github.io/metronome/docs/generated/api.html)"
+echo "Or use the API https://dcos.github.io/metronome/docs/generated/api.html"
 echo
 echo
 
