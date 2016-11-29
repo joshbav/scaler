@@ -54,7 +54,7 @@ echo "Creating /tmp/rollout-$APP_NAME-canary.json"
 cat /tmp/deploy-"$APP_NAME"-canary.json | sed 's|--new-instances 1|--complete-cur|g; s|deploy-|rollout-|g' > /tmp/rollout-$APP_NAME-canary.json
 
 echo "Creating /tmp/rollback-$APP_NAME-canary.json"
-cat /tmp/deploy-"$APP_NAME"-canary.json | sed 's|--new-instances 1|--rollback-cur|g; s|deploy-|rollback-|g' > /tmp/rollback-$APP_NAME-canary.json
+cat /tmp/deploy-"$APP_NAME"-canary.json | sed 's|--new-instances 1|--complete-prev|g; s|deploy-|rollback-|g' > /tmp/rollback-$APP_NAME-canary.json
 
 echo "Using the DC/OS CLI, removing any existing DC/OS jobs for app $APP_NAME."
 echo
@@ -86,7 +86,7 @@ echo
 echo "To see dcos jobs via the CLI, use: dcos job list"
 echo
 echo "To run one of the jobs from the CLI, such as  deploy-$APP_NAME-canary   use: dcos job run deploy-$APP_NAME-canary"
-echo "Or just use the GUI, and go the Jobs screen. 
+echo "Or just use the GUI, and go the Jobs screen." 
 echo "Or use the API https://dcos.github.io/metronome/docs/generated/api.html"
 echo
 echo

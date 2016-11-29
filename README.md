@@ -54,15 +54,17 @@ This is a version 0.1 product.
 
 4. Let's assume the new canary version will differ from the existing version because it's a different container. So generate the new deployment canary and its associated DC/OS jobs that use an Apache web server container instead, using this command:  bash deploy-canary.sh httpd testapp
 
-5. In the DC/OS GUI go to the Jobs screen and begin the job deploy-testapp-canary. Alternatively, you can use the DC/OS CLI to run the job via:  dcos job run deploy-testapp-canary  or you could use the API. This will add -blue to the app name, when the job completes an app named testapp-blue will be visible in the Services screen. Test that you can reach the app using your browser, curl, etc.    
+5. In the DC/OS GUI go to the Jobs screen and begin the job deploy-testapp-canary. Alternatively, you can use the DC/OS CLI to run the job via:  dcos job run deploy-testapp-canary  or you could use the API. This will add -blue to the app name, when the job completes an app named testapp-blue will be visible in the Services screen. 
 
-6. Since this script is focused on rolling out new versions of apps, we need to first have a version already running. This only needs to be done once, because from then on all operations are rollouts/rollbacks of new versions. The previous step accomplished the need to get an initial app running. Now that we have an existing version of the app runninng, we will generate the next version that uses nginx instead of apache, and we'll deploy a single canary instance of it. So rerun the deploy-canary script but this time with nginx: ./deploy-canary nginx testapp
+6. Test that you can reach the app using your browser, curl, etc.    
 
-7. In the DC/OS GUI go to the Jobs screen and begin the job deploy-testapp-canary. This will deploy one instance of the nginx version.
+7. Since this script is focused on rolling out new versions of apps, we need to first have a version already running. This only needs to be done once, because from then on all operations are rollouts/rollbacks of new versions. The previous step accomplished the need to get an initial app running. Now that we have an existing version of the app runninng, we will generate the next version that uses nginx instead of apache, and we'll deploy a single canary instance of it. So rerun the deploy-canary script but this time with nginx: ./deploy-canary nginx testapp
 
-8. If you cycle thru the browser or curl, or generate a load test, you should see 1 of 4 responses with the "Welcome to NGINX" default page, and 3 of 4 responses with the "It works!" default apache page.  At this point you are in a hybrid deployment mode; both the old and new versions are running and traffic is split. 
+8. In the DC/OS GUI go to the Jobs screen and begin the job deploy-testapp-canary. This will deploy one instance of the nginx version and name it testapp-green.
 
-9a. Let us assume the test canary was successful. You would now run the rollout-testapp-canary job. 
+9. If you cycle thru the browser or curl, or generate a load test, you should see 1 of 4 responses with the "Welcome to NGINX" default page, and 3 of 4 responses with the "It works!" default apache page.  At this point you are in a hybrid deployment mode; both the old and new versions are running and traffic is split. 
 
-9b. However if the test canary instance was not successful, you would remove it by running the rollback-testapp-canary job.
+10a. Let us assume the test canary was successful. You would now run the rollout-testapp-canary job. 
+
+10b. However if the test canary instance was not successful, you would remove it by running the rollback-testapp-canary job.
 
